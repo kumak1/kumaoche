@@ -1,0 +1,10 @@
+# Created by .ignore support plugin (hsz.mobi)
+.DS_Store
+list.txt
+Pipfile
+.idea
+.eggs/
+docs/
+kumaoche.egg-info/
+tests/__pycache__/
+tests/service/__pycache__/
