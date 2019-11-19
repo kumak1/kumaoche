@@ -1,0 +1,72 @@
+defaults:
+  variable: &variable_defaults
+    git_host: 'github.com'
+    git_org: 'kumak1'
+    git_repo: 'kumaoche'
+    db_host: 'db'
+    db_port: '3306'
+    db_user: 'root'
+    db_database: 'db'
+  shell: &shell_defaults
+    name: 'shell'
+    work_dir: '`ghq root`'
+    run: '{command}'
+  docker: &docker_defaults
+    name: 'docker'
+    work_dir: '`ghq root`/{git_host}/{git_org}/{git_repo}'
+    container: ''
+    run: 'docker-compose run {container} /bin/bash -c "{command}"'
+    ps: 'docker-compose ps'
+    build: 'docker-compose build'
+    up: 'docker-compose up -d'
+    down: 'docker-compose down'
+  git: &git_defaults
+    env:
+      <<: *shell_defaults
+    repo_dir: '`ghq root`/{git_host}/{git_org}/{git_repo}'
+    run: '{command}'
+    setup: 'ghq get git@{git_host}:{git_org}/{git_repo}.git'
+    update: 'ghq get git@{git_host}:{git_org}/{git_repo}.git && cd `ghq root`/{git_host}/{git_org}/{git_repo} && git switch master && git pull'
+  db: &db_defaults
+    env:
+      <<: *docker_defaults
+    run: "{command}"
+    setup: ''
+    update: ''
+  php: &php_defaults
+    env:
+      <<: *docker_defaults
+    run: '{command}'
+    setup: 'php -d detect_unicode=Off composer.phar install'
+    update: 'php -d detect_unicode=Off composer.phar install'
+    test: 'cd ./tests && ../vendor/bin/phpunit'
+  ruby: &ruby_defaults
+    env:
+      <<: *docker_defaults
+    run: '{command}'
+    setup: 'bundle install'
+    update: 'bundle install'
+    test: 'bundle exec rspec --color'
+  node: &node_defaults
+    env:
+      <<: *docker_defaults
+    run: '{command}'
+    setup: 'npm install'
+    update: 'npm install'
+    test: 'npm test'
+
+fixtures:
+  variable:
+    <<: *variable_defaults
+    git_repo: 'colorme-fixtures'
+  docker:
+    <<: *docker_defaults
+  git:
+    <<: *git_defaults
+  db:
+    <<: *db_defaults
+    env:
+      <<: *docker_defaults
+      container: 'fixtures'
+    setup: 'bundle install -j8 --path vendor/bundle && bundle exec rake db:setup && bundle exec rake colorme:master_data:reset && bundle exec rake db:migrate && export ENV=test && bundle exec rake db:migratebundle exec rake db:migrate && export ENV=test && bundle exec rake db:migrate'
+    update: 'bundle exec rake db:migrate && export ENV=test && bundle exec rake db:migrate'
