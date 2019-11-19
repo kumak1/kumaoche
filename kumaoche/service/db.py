@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from ..config.service.db_config import DbConfig
-from ..exec_env.exec_env import ExecEnv
+from ..config import DbConfig
+from ..exec_env import ExecEnv
 from .service import Service
 
 

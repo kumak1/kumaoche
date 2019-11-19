@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from .exec_env import ExecEnv
-from ..runner.runner import Runner
-from ..config.exec_env.shell_config import ShellConfig
+from ..runner import Runner
+from ..config import ShellConfig
 
 
 class Shell(ExecEnv):

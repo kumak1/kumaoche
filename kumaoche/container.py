@@ -1,14 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from .config.config_parser import ConfigParser
-from .config.service.service_config import ServiceConfig
-from .exec_env.disable import DisableEnv
-from .exec_env.shell import Shell
-from .exec_env.docker import Docker
-from .service.git import Git
-from .service.db import DB
-from .service.package_manager import PackageManager
-from .runner.invoke_runner import InvokeRunner
+from .config import ConfigParser, ServiceConfig
+from .exec_env import DisableEnv, Shell, Docker
+from .service import Git, DB, PackageManager
+from .runner import InvokeRunner
 
 
 class Container(object):

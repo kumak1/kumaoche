@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from ..exec_env.exec_env_config import ExecEnvConfig
-from ..exec_env.shell_config import ShellConfig
-from ..exec_env.docker_config import DockerConfig
+from ..exec_env import ExecEnvConfig, ShellConfig, DockerConfig
 
 
 class ServiceConfig(object):

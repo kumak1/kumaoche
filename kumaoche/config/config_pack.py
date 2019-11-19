@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from .exec_env.shell_config import ShellConfig
-from .exec_env.docker_config import DockerConfig
-from .service.git_config import GitConfig
-from .service.db_config import DbConfig
-from .service.package_service_config import PackageManagerConfig
+from .exec_env import ShellConfig, DockerConfig
+from .service import GitConfig, DbConfig, PackageManagerConfig
 
 
 class ConfigPack(object):

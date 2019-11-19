@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from ..config.service.package_service_config import PackageManagerConfig
-from ..exec_env.exec_env import ExecEnv
+from ..config import PackageManagerConfig
+from ..exec_env import ExecEnv
 from .service import Service
 
 
