@@ -1,9 +1,9 @@
 # Created by .ignore support plugin (hsz.mobi)
 .DS_Store
 list.txt
-Pipfile
 .idea
 .eggs/
+dist/
 docs/
 kumaoche.egg-info/
 tests/__pycache__/
