@@ -3,6 +3,7 @@
 list.txt
 .idea
 .eggs/
+build/
 dist/
 docs/
 kumaoche.egg-info/
