@@ -11,7 +11,7 @@ class ConfigParser(object):
 
     @classmethod
     def file_path(cls):
-        paths = os.environ.get('KUMAOCHE_CONFIG_PATH', os.path.dirname(__file__) + '/config.yml').split(':')
+        paths = os.environ.get('KUMAOCHE_CONFIG_PATH', os.getcwd() + '/kumaoche_config.yml').split(':')
 
         # ファイル存在確認
         for path in paths:
