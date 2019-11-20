@@ -4,11 +4,14 @@ from kumaoche.exec_env.exec_env import ExecEnv
 
 
 class MocEnv(ExecEnv):
+    def __init__(self, variable: {}):
+        self.__default_var = variable
+
     def name(self):
         return ''
 
     def assign_variables(self):
-        return ''
+        return self.__default_var
 
     def run(self, command: str):
         return command

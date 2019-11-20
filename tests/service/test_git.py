@@ -1,6 +1,5 @@
 import unittest
 from kumaoche.service import Git
-from kumaoche.config import GitConfig, ConfigParser
 from ..exec_env import MocEnv
 from ..config import StubConfig
 
@@ -8,9 +7,9 @@ from ..config import StubConfig
 class TestGit(unittest.TestCase):
     def test_run(self):
         config = StubConfig.find('test_role')
-        print(config.git.repo_dir)
+        git = Git(MocEnv(config.variable), config.git)
 
-        Git(MocEnv, config)
+        print(git.setup())
         self.assertEqual(True, False)
 
 
