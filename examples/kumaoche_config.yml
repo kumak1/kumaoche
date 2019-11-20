@@ -7,6 +7,10 @@ defaults:
     db_port: '3306'
     db_user: 'root'
     db_database: 'db'
+  string_builder: &string_builder_defaults
+    name: 'string_builder'
+    work_dir: '`ghq root`'
+    run: '{command}'
   shell: &shell_defaults
     name: 'shell'
     work_dir: '`ghq root`'

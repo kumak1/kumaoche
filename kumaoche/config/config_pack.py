@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from .exec_env import ShellConfig, DockerConfig
+from .exec_env import ShellConfig, DockerConfig, StringBuilderConfig
 from .service import GitConfig, DbConfig, PackageManagerConfig
 
 
 class ConfigPack(object):
     def __init__(self, parsed_yaml):
         self.variable = self.assign_dict(parsed_yaml, 'variable')
+        self.string_builder = StringBuilderConfig(parsed_yaml, 'string_builder')
         self.shell = ShellConfig(parsed_yaml, 'shell')
         self.docker = DockerConfig(parsed_yaml, 'docker')
         self.git = GitConfig(parsed_yaml, 'git')
