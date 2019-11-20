@@ -40,7 +40,7 @@ class ConfigParser(object):
         if len(file_path_list) == 0:
             file_path_list = cls.file_path_list()
 
-        if role not in cls.all_roles():
+        if role not in cls.all_roles(file_path_list):
             print(f'Target role "{role}" is not exist.')
             sys.exit()
 

@@ -2,11 +2,15 @@ defaults:
   variable: &variable_defaults
     git_host: 'github.com'
     git_org: 'kumak1'
-    git_repo: 'kumaoche'
+    git_repo: ''
     db_host: 'db'
     db_port: '3306'
     db_user: 'root'
     db_database: 'db'
+  string_builder: &string_builder_defaults
+    name: 'string_builder'
+    work_dir: '`ghq root`'
+    run: '{command}'
   shell: &shell_defaults
     name: 'shell'
     work_dir: '`ghq root`'
@@ -55,18 +59,9 @@ defaults:
     update: 'npm install'
     test: 'npm test'
 
-fixtures:
+test_role:
   variable:
     <<: *variable_defaults
-    git_repo: 'colorme-fixtures'
-  docker:
-    <<: *docker_defaults
+    git_repo: 'kumaoche'
   git:
     <<: *git_defaults
-  db:
-    <<: *db_defaults
-    env:
-      <<: *docker_defaults
-      container: 'fixtures'
-    setup: 'bundle install -j8 --path vendor/bundle && bundle exec rake db:setup && bundle exec rake colorme:master_data:reset && bundle exec rake db:migrate && export ENV=test && bundle exec rake db:migratebundle exec rake db:migrate && export ENV=test && bundle exec rake db:migrate'
-    update: 'bundle exec rake db:migrate && export ENV=test && bundle exec rake db:migrate'
