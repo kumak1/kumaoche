@@ -17,8 +17,9 @@ class Shell(ExecEnv):
     def assign_variables(self):
         return self.__default_var
 
-    def run(self, command: str):
-        work_dir = self.__runner.path_filter(self.__config.work_dir.format(**self.assign_variables()))
+    def run(self, command: str, work_dir=''):
+        if work_dir == '':
+            work_dir = self.__runner.path_filter(self.__config.work_dir.format(**self.assign_variables()))
         cmd = self.__config.run.format(**self.assign_variables(), **{'command': command})
 
         return self.__runner.run(f'cd {work_dir} && {cmd}')

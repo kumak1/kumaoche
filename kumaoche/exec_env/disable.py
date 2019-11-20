@@ -10,5 +10,5 @@ class DisableEnv(ExecEnv):
     def assign_variables(self):
         return {}
 
-    def run(self, command: str):
+    def run(self, command: str, work_dir=''):
         return

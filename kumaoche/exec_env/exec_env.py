@@ -13,5 +13,5 @@ class ExecEnv(metaclass=ABCMeta):
         raise NotImplementedError()
 
     @abstractmethod
-    def run(self, command: str):
+    def run(self, command: str, work_dir=''):
         raise NotImplementedError()
