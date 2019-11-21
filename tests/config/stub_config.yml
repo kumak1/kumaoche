@@ -66,6 +66,8 @@ variable_assign_test_role:
     env:
       <<: *shell_defaults
     repo_dir: repo git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}
-    run: {command}
+    run: run {command}
     setup: setup git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}
     update: update git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}
+
+empty_role:

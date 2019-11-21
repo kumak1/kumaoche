@@ -12,8 +12,9 @@ class Git(Service):
 
     def run(self, command: str):
         repo_dir = self.__config.repo_dir.format(**self.env.assign_variables())
+        cmd = command.format(**self.env.assign_variables())
 
-        return self.env.run(command.format(**self.env.assign_variables()), work_dir=repo_dir)
+        return self.env.run(self.__config.run.format(**self.env.assign_variables(), **{'command': cmd}), work_dir=repo_dir)
 
     def setup(self):
         return self.env.run(self.__config.setup.format(**self.env.assign_variables()))

@@ -1,7 +1,7 @@
 import unittest
 
 
-class TestGit(unittest.TestCase):
+class TestGitConfig(unittest.TestCase):
     def test_run(self):
         self.assertEqual(True, False)
 
