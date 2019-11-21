@@ -18,11 +18,13 @@ class TestShell(unittest.TestCase):
     def test_run(self):
         self.assertEqual(f"cd shell work_dir {self.dst_text} && shell run test_command", self.env.run("test_command"))
         self.assertEqual(f"cd shell work_dir {self.dst_text} && shell run {self.dst_text}", self.env.run(self.src_text))
-        # self.assertEqual(f"cd shell work_dir && shell run ", self.empty_env.run(self.src_text))
+        self.assertEqual("", self.empty_env.run(self.src_text))
 
-    # def test_assign_variables(self):
-    #     self.assertEqual(f"work_dir:,command:db setup {self.dst_text}", self.db.setup())
-    #     self.assertEqual(f"work_dir:,command:", self.empty_db.setup())
+    def test_var_assign(self):
+        self.assertEqual(self.dst_text, self.env.var_assign(self.src_text))
+        self.assertEqual('', self.env.var_assign(''))
+        self.assertEqual('changed', self.env.var_assign('{var_test}', {'var_test': 'changed'}))
+        self.assertEqual(self.src_text, self.empty_env.var_assign(self.src_text))
 
     def test_name(self):
         self.assertEqual("shell", self.env.name())

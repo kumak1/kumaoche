@@ -27,7 +27,10 @@ class Shell(ExecEnv):
         if work_dir == '':
             work_dir = self.__runner.path_filter(self.var_assign(self.__config.work_dir))
 
+        if work_dir != '':
+            work_dir = f'cd {work_dir} && '
+
         cmd = self.var_assign(command)
         cmd = self.var_assign(self.__config.run, {'command': cmd})
 
-        return self.__runner.run(f'cd {work_dir} && {cmd}')
+        return self.__runner.run(f'{work_dir}{cmd}')
