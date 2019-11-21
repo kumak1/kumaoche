@@ -9,7 +9,7 @@ class ExecEnv(metaclass=ABCMeta):
         raise NotImplementedError()
 
     @abstractmethod
-    def assign_variables(self):
+    def var_assign(self, text: str, append_var=None):
         raise NotImplementedError()
 
     @abstractmethod

@@ -7,8 +7,8 @@ class DisableEnv(ExecEnv):
     def name(self):
         return 'disable'
 
-    def assign_variables(self):
-        return {}
+    def var_assign(self, text: str, append_var=None):
+        return text
 
     def run(self, command: str, work_dir=''):
         return

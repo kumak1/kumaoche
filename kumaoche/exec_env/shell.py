@@ -14,12 +14,20 @@ class Shell(ExecEnv):
     def name(self):
         return self.__config.name
 
-    def assign_variables(self):
-        return self.__default_var
+    def var_assign(self, text: str, append_var=None):
+        if append_var is None:
+            append_var = {}
+
+        if len(self.__default_var) + len(append_var) > 0:
+            return text.format(**self.__default_var, **append_var)
+
+        return text
 
     def run(self, command: str, work_dir=''):
         if work_dir == '':
-            work_dir = self.__runner.path_filter(self.__config.work_dir.format(**self.assign_variables()))
-        cmd = self.__config.run.format(**self.assign_variables(), **{'command': command})
+            work_dir = self.__runner.path_filter(self.var_assign(self.__config.work_dir))
+
+        cmd = self.var_assign(command)
+        cmd = self.var_assign(self.__config.run, {'command': cmd})
 
         return self.__runner.run(f'cd {work_dir} && {cmd}')

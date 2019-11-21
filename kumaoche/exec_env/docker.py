@@ -14,13 +14,22 @@ class Docker(ExecEnv):
     def name(self):
         return self.__config.name
 
-    def assign_variables(self):
-        return self.__default_var
+    def var_assign(self, text: str, append_var=None):
+        if append_var is None:
+            append_var = {}
 
-    def exec(self, command: str, work_dir='', append_var={'default': 0}):
+        if len(self.__default_var) + len(append_var) > 0:
+            return text.format(**self.__default_var, **append_var)
+
+        return text
+
+    def exec(self, command: str, work_dir='', append_var=None):
+        if append_var is None:
+            append_var = {}
+
         if work_dir != '':
-            work_dir = self.__runner.path_filter(work_dir.format(**self.assign_variables()))
-            cmd = command.format(**self.assign_variables(), **append_var)
+            work_dir = self.__runner.path_filter(self.var_assign(work_dir))
+            cmd = self.var_assign(command, append_var)
             return self.__runner.run(f'cd {work_dir} && {cmd}')
 
     def build(self):

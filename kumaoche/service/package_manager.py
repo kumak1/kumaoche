@@ -11,19 +11,19 @@ class PackageManager(Service):
         self.__config = config
 
     def run(self, command: str):
-        cmd = command.format(**self.env.assign_variables())
-        return self.env.run(self.__config.run.format(**self.env.assign_variables(), **{'command': cmd}))
+        var_command = {'command': self.env.var_assign(command)}
+        return self.env.run(self.env.var_assign(self.__config.run,  var_command))
 
     def setup(self):
-        return self.env.run(self.__config.setup.format(**self.env.assign_variables()))
+        return self.env.run(self.env.var_assign(self.__config.setup))
 
     def update(self):
-        return self.env.run(self.__config.update.format(**self.env.assign_variables()))
+        return self.env.run(self.env.var_assign(self.__config.update))
 
     def test(self, suffix=''):
-        cmd = self.__config.test.format(**self.env.assign_variables())
+        cmd = self.env.var_assign(self.__config.test)
 
         if suffix != '':
-            suffix = ' ' + suffix.format(**self.env.assign_variables())
+            suffix = ' ' + self.env.var_assign(suffix)
 
         return self.env.run(f'{cmd}{suffix}')
