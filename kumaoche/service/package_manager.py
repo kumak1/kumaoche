@@ -21,4 +21,9 @@ class PackageManager(Service):
         return self.env.run(self.__config.update.format(**self.env.assign_variables()))
 
     def test(self, suffix=''):
-        return self.env.run(f'{self.__config.test} {suffix}')
+        cmd = self.__config.test.format(**self.env.assign_variables())
+
+        if suffix != '':
+            suffix = ' ' + suffix.format(**self.env.assign_variables())
+
+        return self.env.run(f'{cmd}{suffix}')

@@ -29,6 +29,10 @@ class TestPackageManager(unittest.TestCase):
         self.assertEqual(f"work_dir:,command:pm update {self.dst_text}", self.pm.update())
         self.assertEqual(f"work_dir:,command:", self.empty_pm.update())
 
+    def test_test(self):
+        self.assertEqual(f"work_dir:,command:pm test {self.dst_text}", self.pm.test())
+        self.assertEqual(f"work_dir:,command:pm test {self.dst_text} {self.dst_text}", self.pm.test(self.src_text))
+
 
 if __name__ == '__main__':
     unittest.main()
