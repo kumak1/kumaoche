@@ -22,8 +22,8 @@ class ConfigParser(object):
         return path_list
 
     @classmethod
-    def all_roles(cls, file_path_list=[]):
-        if len(file_path_list) == 0:
+    def all_roles(cls, file_path_list=None):
+        if file_path_list is None:
             file_path_list = cls.file_path_list()
 
         loaded_roles = []
@@ -36,8 +36,8 @@ class ConfigParser(object):
         return sorted(set(loaded_roles), key=loaded_roles.index)
 
     @classmethod
-    def find(cls, role: str, file_path_list=[]):
-        if len(file_path_list) == 0:
+    def find(cls, role: str, file_path_list=None):
+        if file_path_list is None:
             file_path_list = cls.file_path_list()
 
         if role not in cls.all_roles(file_path_list):
