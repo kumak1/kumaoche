@@ -75,5 +75,11 @@ variable_assign_test_role:
     run: db run {command}
     setup: db setup git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}
     update: db update git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}
+  php:
+    env:
+      <<: *shell_defaults
+    run: pm run {command}
+    setup: pm setup git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}
+    update: pm update git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}
 
 empty_role:
