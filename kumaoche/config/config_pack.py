@@ -6,6 +6,9 @@ from .service import GitConfig, DbConfig, PackageManagerConfig
 
 class ConfigPack(object):
     def __init__(self, parsed_yaml):
+        if parsed_yaml is None:
+            parsed_yaml = {}
+
         self.variable = self.assign_dict(parsed_yaml, 'variable')
         self.string_builder = StringBuilderConfig(parsed_yaml, 'string_builder')
         self.shell = ShellConfig(parsed_yaml, 'shell')
