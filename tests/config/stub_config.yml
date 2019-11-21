@@ -66,6 +66,11 @@ variable_assign_test_role:
     name: shell
     work_dir: shell work_dir git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}
     run: shell run {command}
+  docker:
+    name: docker
+    container: 'container'
+    work_dir: docker work_dir git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}
+    run: docker run {command}
   git:
     env:
       <<: *shell_defaults

@@ -32,6 +32,8 @@ class Docker(ExecEnv):
             cmd = self.var_assign(command, append_var)
             return self.__runner.run(f'cd {work_dir} && {cmd}')
 
+        return ''
+
     def build(self):
         return self.exec(self.__config.build, work_dir=self.__config.work_dir)
 
@@ -51,5 +53,10 @@ class Docker(ExecEnv):
         if container == '':
             container = self.__config.container
 
+        append_var = {'container': container, 'command': command}
+        cmd = self.var_assign(command, append_var)
+
         if container != '':
-            return self.exec(self.__config.run, work_dir=work_dir, append_var={'container': container, 'command': command})
+            return self.exec(self.__config.run, work_dir=work_dir, append_var={'container': container, 'command': cmd})
+
+        return ''

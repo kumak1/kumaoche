@@ -65,3 +65,5 @@ test_role:
     git_repo: 'kumaoche'
   git:
     <<: *git_defaults
+  docker:
+    <<: *docker_defaults
