@@ -8,4 +8,4 @@ class PackageManagerConfig(ServiceConfig):
         super().__init__(parsed_yaml, key)
 
         configs = parsed_yaml.get(key, {})
-        self.test = configs.get('test')
+        self.test = configs.get('test', '')
