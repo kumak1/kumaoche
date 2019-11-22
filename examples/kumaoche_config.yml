@@ -1,3 +1,5 @@
+version: 1
+
 defaults:
   variable: &variable_defaults
     git_host: 'github.com'
@@ -59,11 +61,12 @@ defaults:
     update: 'npm install'
     test: 'npm test'
 
-test_role:
-  variable:
-    <<: *variable_defaults
-    git_repo: 'kumaoche'
-  git:
-    <<: *git_defaults
-  docker:
-    <<: *docker_defaults
+roles:
+  test_role:
+    variable:
+      <<: *variable_defaults
+      git_repo: 'kumaoche'
+    git:
+      <<: *git_defaults
+    docker:
+      <<: *docker_defaults
