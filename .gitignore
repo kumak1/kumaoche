@@ -6,6 +6,9 @@ list.txt
 build/
 dist/
 docs/
+kumaoche.srctrlbm
+kumaoche.srctrldb
+kumaoche.srctrlprj
 kumaoche.egg-info/
 tests/__pycache__/
 tests/service/__pycache__/
