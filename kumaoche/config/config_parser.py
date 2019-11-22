@@ -18,17 +18,19 @@ class ConfigParser(object):
         loaded_yaml = cls.yaml_load(file_path_list)
         parsed_yaml = cls.parse_version(loaded_yaml)
         loaded_roles = parsed_yaml.get('roles', {})
+        loaded_role_keys = list(loaded_roles.keys())
 
         # 順序を維持した重複削除
-        return sorted(set(loaded_roles), key=loaded_roles.index)
+        return sorted(set(loaded_role_keys), key=loaded_role_keys.index)
 
     @classmethod
     def find(cls, role: str, file_path_list=None):
         loaded_yaml = cls.yaml_load(file_path_list)
         parsed_yaml = cls.parse_version(loaded_yaml)
         loaded_roles = parsed_yaml.get('roles', {})
+        loaded_role_keys = list(loaded_roles.keys())
 
-        if role not in loaded_roles.keys():
+        if role not in loaded_role_keys:
             print(f'Target role "{role}" is not exist.')
             sys.exit()
 
