@@ -2,7 +2,7 @@ import unittest
 from kumaoche.config import ConfigPack
 
 
-class TestShellConfig(unittest.TestCase):
+class TestConfigPack(unittest.TestCase):
     def test_init(self):
         parsed_yaml = {
             'variable': {'key': 'value'},
