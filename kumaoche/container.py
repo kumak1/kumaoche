@@ -10,7 +10,6 @@ class Container(object):
     def __init__(self, role: str):
         config = ConfigParser.find(role)
 
-        self.name = config.git.repo
         self.string_builder = StringBuilder(config.string_builder, config.variable, InvokeRunner)
         self.shell = Shell(config.shell, config.variable, InvokeRunner)
         self.docker = Docker(config.docker, config.variable, InvokeRunner)
