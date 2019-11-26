@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from .exec_env import ShellConfig, DockerConfig, StringBuilderConfig
-from .service import GitConfig, DbConfig, PackageManagerConfig
+from .service import GitConfig, PackageManagerConfig
 
 
 class ConfigPack(object):
@@ -14,7 +14,6 @@ class ConfigPack(object):
         self.shell = ShellConfig(parsed_yaml, 'shell')
         self.docker = DockerConfig(parsed_yaml, 'docker')
         self.git = GitConfig(parsed_yaml, 'git')
-        self.db = DbConfig(parsed_yaml, 'db')
         self.php = PackageManagerConfig(parsed_yaml, 'php')
         self.ruby = PackageManagerConfig(parsed_yaml, 'ruby')
         self.node = PackageManagerConfig(parsed_yaml, 'node')

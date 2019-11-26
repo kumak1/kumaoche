@@ -33,12 +33,6 @@ defaults:
     run: '{command}'
     setup: 'ghq get git@{git_host}:{git_org}/{git_repo}.git'
     update: 'ghq get git@{git_host}:{git_org}/{git_repo}.git && cd `ghq root`/{git_host}/{git_org}/{git_repo} && git switch master && git pull'
-  db: &db_defaults
-    env:
-      <<: *docker_defaults
-    run: "{command}"
-    setup: ''
-    update: ''
   php: &php_defaults
     env:
       <<: *docker_defaults
@@ -81,12 +75,6 @@ roles:
       run: git run {command}
       setup: git setup git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}
       update: git update git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}
-    db:
-      env:
-        <<: *shell_defaults
-      run: db run {command}
-      setup: db setup git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}
-      update: db update git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}
     php:
       env:
         <<: *shell_defaults
