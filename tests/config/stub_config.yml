@@ -22,7 +22,6 @@ defaults:
     work_dir: '`ghq root`/{git_host}/{git_org}/{git_repo}'
     container: ''
     run: 'docker-compose run {container} /bin/bash -c "{command}"'
-    ps: 'docker-compose ps'
     build: 'docker-compose build'
     up: 'docker-compose up -d'
     down: 'docker-compose down'

@@ -43,9 +43,6 @@ class Docker(ExecEnv):
     def down(self):
         return self.exec(self.__config.down, work_dir=self.__config.work_dir)
 
-    def ps(self):
-        return self.exec(self.__config.ps, work_dir=self.__config.work_dir)
-
     def run(self, command: str, work_dir='', container=''):
         if work_dir == '':
             work_dir = self.__config.work_dir

@@ -10,11 +10,18 @@ class Container(object):
     def __init__(self, role: str):
         config = ConfigParser.find(role)
 
+        self.git = Git(self.env(config.git, config.variable), config.git)
+
         self.string_builder = StringBuilder(config.string_builder, config.variable, InvokeRunner)
         self.shell = Shell(config.shell, config.variable, InvokeRunner)
         self.docker = Docker(config.docker, config.variable, InvokeRunner)
 
-        self.git = Git(self.env(config.git, config.variable), config.git)
+        self.exec_envs = [
+            self.string_builder,
+            self.shell,
+            self.docker
+        ]
+
         self.php = PackageManager(self.env(config.php, config.variable), config.php)
         self.ruby = PackageManager(self.env(config.ruby, config.variable), config.ruby)
         self.node = PackageManager(self.env(config.node, config.variable), config.node)
@@ -24,6 +31,12 @@ class Container(object):
             self.ruby,
             self.node
         ]
+
+    def setup(self):
+        return
+
+    def update(self):
+        return
 
     @staticmethod
     def env(config: ServiceConfig, variable: {}):
