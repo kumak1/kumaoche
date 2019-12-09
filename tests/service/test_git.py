@@ -13,8 +13,8 @@ class TestGit(unittest.TestCase):
         self.env = MocEnv(self.config.variable)
         self.git = Git(self.env, self.config.git)
         self.empty_git = Git(self.env, self.empty_config.git)
-        self.src_text = 'git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}'
-        self.dst_text = 'git_host:github.com,git_org:kumak1,git_repo:kumaoche,db_host:db,db_port:3306,db_user:root,db_database:db'
+        self.src_text = 'git_host:{git_host},git_org:{git_org},git_repo:{git_repo}'
+        self.dst_text = 'git_host:github.com,git_org:kumak1,git_repo:kumaoche'
 
     def test_run(self):
         self.assertEqual(f"work_dir:repo {self.dst_text},command:git run test_command", self.git.run("test_command"))

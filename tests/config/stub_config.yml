@@ -54,32 +54,45 @@ defaults:
     update: 'npm install'
     test: 'npm test'
 
+default_environments:
+  git_host: 'github.com'
+  git_org: 'kumak1'
+  git_repo: 'kumaoche'
+
+repositories:
+  colorme-admin:
+    services:
+      -
+        lang: php
+        development_env: docker
+        container_name: admin-php-fpm
+
 roles:
   variable_assign_test_role:
     variable:
       <<: *variable_defaults
     shell:
       name: shell
-      work_dir: shell work_dir git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}
+      work_dir: shell work_dir git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
       run: shell run {command}
     docker:
       name: docker
       container: 'container'
-      work_dir: docker work_dir git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}
+      work_dir: docker work_dir git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
       run: docker run {command}
     git:
       env:
         <<: *shell_defaults
-      repo_dir: repo git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}
+      repo_dir: repo git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
       run: git run {command}
-      setup: git setup git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}
-      update: git update git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}
+      setup: git setup git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
+      update: git update git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
     php:
       env:
         <<: *shell_defaults
       run: pm run {command}
-      setup: pm setup git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}
-      update: pm update git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}
-      test: pm test git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}
+      setup: pm setup git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
+      update: pm update git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
+      test: pm test git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
 
   empty_role:

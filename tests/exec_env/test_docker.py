@@ -12,8 +12,8 @@ class TestShell(unittest.TestCase):
         self.empty_config = StubConfig.find('empty_role')
         self.env = Docker(self.config.docker, self.config.variable, MocRunner)
         self.empty_env = Docker(self.empty_config.docker, self.empty_config.variable, MocRunner)
-        self.src_text = 'git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}'
-        self.dst_text = 'git_host:github.com,git_org:kumak1,git_repo:kumaoche,db_host:db,db_port:3306,db_user:root,db_database:db'
+        self.src_text = 'git_host:{git_host},git_org:{git_org},git_repo:{git_repo}'
+        self.dst_text = 'git_host:github.com,git_org:kumak1,git_repo:kumaoche'
 
     def test_run(self):
         self.assertEqual(f"cd docker work_dir {self.dst_text} && docker run test_command", self.env.run("test_command"))

@@ -13,8 +13,8 @@ class TestPackageManager(unittest.TestCase):
         self.env = MocEnv(self.config.variable)
         self.pm = PackageManager(self.env, self.config.php)
         self.empty_pm = PackageManager(self.env, self.empty_config.php)
-        self.src_text = 'git_host:{git_host},git_org:{git_org},git_repo:{git_repo},db_host:{db_host},db_port:{db_port},db_user:{db_user},db_database:{db_database}'
-        self.dst_text = 'git_host:github.com,git_org:kumak1,git_repo:kumaoche,db_host:db,db_port:3306,db_user:root,db_database:db'
+        self.src_text = 'git_host:{git_host},git_org:{git_org},git_repo:{git_repo}'
+        self.dst_text = 'git_host:github.com,git_org:kumak1,git_repo:kumaoche'
 
     def test_run(self):
         self.assertEqual(f"work_dir:,command:pm run test_command", self.pm.run("test_command"))
