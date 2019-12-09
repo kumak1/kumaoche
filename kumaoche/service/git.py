@@ -7,17 +7,17 @@ from .service import Service
 
 class Git(Service):
     def __init__(self, env: ExecEnv, config: GitConfig):
-        self.__env = env
+        self.env = env
         self.__config = config
 
     def run(self, command: str):
-        repo_dir = self.__env.var_assign(self.__config.repo_dir)
-        var_command = {'command': self.__env.var_assign(command)}
+        repo_dir = self.env.var_assign(self.__config.repo_dir)
+        var_command = {'command': self.env.var_assign(command)}
 
-        return self.__env.run(self.__env.var_assign(self.__config.run, var_command), work_dir=repo_dir)
+        return self.env.run(self.env.var_assign(self.__config.run, var_command), work_dir=repo_dir)
 
     def setup(self):
-        return self.__env.run(self.__env.var_assign(self.__config.setup))
+        return self.env.run(self.env.var_assign(self.__config.setup))
 
     def update(self):
-        return self.__env.run(self.__env.var_assign(self.__config.update))
+        return self.env.run(self.env.var_assign(self.__config.update))
