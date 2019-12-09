@@ -23,7 +23,19 @@ class StringBuilder(ExecEnv):
 
         return text
 
+    def build(self, command: str, work_dir=''):
+        return self.__string_build(command, work_dir=work_dir)
+
+    def up(self, command: str, work_dir=''):
+        return self.__string_build(command, work_dir=work_dir)
+
+    def down(self, command: str, work_dir=''):
+        return self.__string_build(command, work_dir=work_dir)
+
     def run(self, command: str, work_dir=''):
+        return self.__string_build(command, work_dir=work_dir)
+
+    def __string_build(self, command: str, work_dir=''):
         if work_dir == '':
             work_dir = self.__runner.path_filter(self.var_assign(self.__config.work_dir))
 

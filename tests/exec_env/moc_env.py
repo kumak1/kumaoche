@@ -19,5 +19,14 @@ class MocEnv(ExecEnv):
 
         return text
 
+    def build(self, command: str, work_dir=''):
+        return f'work_dir:{work_dir},command:{command}'
+
+    def up(self, command: str, work_dir=''):
+        return f'work_dir:{work_dir},command:{command}'
+
+    def down(self, command: str, work_dir=''):
+        return f'work_dir:{work_dir},command:{command}'
+
     def run(self, command: str, work_dir=''):
         return f'work_dir:{work_dir},command:{command}'

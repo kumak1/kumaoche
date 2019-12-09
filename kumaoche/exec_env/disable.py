@@ -10,5 +10,14 @@ class DisableEnv(ExecEnv):
     def var_assign(self, text: str, append_var=None):
         return text
 
+    def build(self, command: str, work_dir=''):
+        return
+
+    def up(self, command: str, work_dir=''):
+        return
+
+    def down(self, command: str, work_dir=''):
+        return
+
     def run(self, command: str, work_dir=''):
         return

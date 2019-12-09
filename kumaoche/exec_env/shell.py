@@ -23,7 +23,19 @@ class Shell(ExecEnv):
 
         return text
 
+    def build(self, command: str, work_dir=''):
+        return self.__string_build(command, work_dir=work_dir)
+
+    def up(self, command: str, work_dir=''):
+        return self.__string_build(command, work_dir=work_dir)
+
+    def down(self, command: str, work_dir=''):
+        return self.__string_build(command, work_dir=work_dir)
+
     def run(self, command: str, work_dir=''):
+        return self.__runner.run(self.__string_build(command, work_dir=work_dir))
+
+    def __string_build(self, command: str, work_dir=''):
         if work_dir == '':
             work_dir = self.__runner.path_filter(self.var_assign(self.__config.work_dir))
 
@@ -33,4 +45,4 @@ class Shell(ExecEnv):
         cmd = self.var_assign(command)
         cmd = self.var_assign(self.__config.run, {'command': cmd})
 
-        return self.__runner.run(f'{work_dir}{cmd}')
+        return f'{work_dir}{cmd}'
