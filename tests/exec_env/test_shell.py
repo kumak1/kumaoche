@@ -19,7 +19,7 @@ class TestShell(unittest.TestCase):
     def test_run(self):
         self.assertEqual(f"cd shell work_dir {self.dst_text} && shell run test_command", self.env.run("test_command"))
         self.assertEqual(f"cd shell work_dir {self.dst_text} && shell run {self.dst_text}", self.env.run(self.src_text))
-        self.assertEqual("shell run git_host:github.com,git_org:kumak1,git_repo:empty_role", self.empty_env.run(self.src_text))
+        self.assertEqual("cd `ghq root` && shell run git_host:github.com,git_org:kumak1,git_repo:empty_role", self.empty_env.run(self.src_text))
 
     def test_var_assign(self):
         self.assertEqual(self.dst_text, self.env.var_assign(self.src_text))
