@@ -162,6 +162,9 @@ class ConfigParser(object):
 
     @classmethod
     def safe_get_hash(cls, dictionary: {}, key: str):
+        if dictionary is None:
+            dictionary = {}
+
         result = dictionary.get(key, {})
         if result is None:
             result = {}
