@@ -142,7 +142,7 @@ class ConfigParser(object):
         # 抽出対象に git リポジトリを上書き
         result['environment']['git_repo'] = repo
 
-        for service in loaded_repository.get('services', []):
+        for service in cls.safe_get_array(loaded_repository, "services"):
             if service is None:
                 continue
 
@@ -168,5 +168,16 @@ class ConfigParser(object):
         result = dictionary.get(key, {})
         if result is None:
             result = {}
+
+        return result
+
+    @classmethod
+    def safe_get_array(cls, dictionary: {}, key: str):
+        if dictionary is None:
+            dictionary = {}
+
+        result = dictionary.get(key, [])
+        if result is None:
+            result = []
 
         return result
