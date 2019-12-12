@@ -125,11 +125,7 @@ class ConfigParser(object):
             print(f'Target repository "{repo}" is not exist.')
             sys.exit()
 
-        # 指定リポジトリの設定のyamlフォーマットが正しいか確認
         loaded_repository = loaded_repositories.get(repo, {})
-        if type(loaded_repository.get('services')) != list:
-            print(f'Syntax Error.')
-            sys.exit()
 
         presets = loaded_yaml.get('presets', {})
         result = {
