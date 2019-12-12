@@ -10,9 +10,8 @@ class TestGit(unittest.TestCase):
     def setUp(self):
         self.config = StubConfig.find('variable_assign_test_role')
         self.empty_config = StubConfig.find('empty_role')
-        self.env = MocEnv(self.config.variable)
-        self.git = Git(self.env, self.config.git)
-        self.empty_git = Git(self.env, self.empty_config.git)
+        self.git = Git(MocEnv(self.config.environment), self.config.git)
+        self.empty_git = Git(MocEnv(self.config.environment), self.empty_config.git)
         self.src_text = 'git_host:{git_host},git_org:{git_org},git_repo:{git_repo}'
         self.dst_text = 'git_host:github.com,git_org:kumak1,git_repo:kumaoche'
 

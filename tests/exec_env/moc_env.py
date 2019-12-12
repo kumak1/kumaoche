@@ -4,7 +4,7 @@ from kumaoche.exec_env.exec_env import ExecEnv
 
 
 class MocEnv(ExecEnv):
-    def __init__(self, variable: {}):
+    def __init__(self, variable={}):
         self.__default_var = variable
 
     def name(self):

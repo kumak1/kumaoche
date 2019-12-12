@@ -18,9 +18,6 @@ class TestShell(unittest.TestCase):
     def test_var_assign(self):
         self.assertEqual(self.src_text, self.env.var_assign(self.src_text))
 
-    def test_name(self):
-        self.assertEqual("disable", self.env.name())
-
 
 if __name__ == '__main__':
     unittest.main()

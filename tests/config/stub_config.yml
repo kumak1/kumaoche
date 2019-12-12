@@ -54,18 +54,35 @@ defaults:
     update: 'npm install'
     test: 'npm test'
 
-default_environments:
-  git_host: 'github.com'
-  git_org: 'kumak1'
-  git_repo: 'kumaoche'
+presets:
+  environment:
+    git_host: github.com
+    git_org: kumak1
+  shell:
+    run: shell run {command}
+    working_dir: '`ghq root`'
 
 repositories:
-  colorme-admin:
+  variable_assign_test_role:
     services:
       -
         lang: php
-        development_env: docker
-        container_name: admin-php-fpm
+        env: docker
+        docker:
+          container_name: container
+        environment:
+          a: b
+      - lang: php
+        env: shell
+        docker:
+          container_name: container
+        shell:
+          working_dir: shell work_dir git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
+        environment:
+  empty_role:
+    services:
+      -
+        lang:
 
 roles:
   variable_assign_test_role:

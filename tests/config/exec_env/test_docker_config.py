@@ -8,7 +8,7 @@ class TestDockerConfig(unittest.TestCase):
             'docker': {
                 'run': '0',
                 'name': '1',
-                'work_dir': '2',
+                'working_dir': '2',
                 'container': '3',
                 'build': '5',
                 'up': '6',
@@ -18,7 +18,7 @@ class TestDockerConfig(unittest.TestCase):
         config = DockerConfig(parsed_yaml, 'docker')
         self.assertEqual('0', config.run)
         self.assertEqual('1', config.name)
-        self.assertEqual('2', config.work_dir)
+        self.assertEqual('2', config.working_dir)
         self.assertEqual('3', config.container)
         self.assertEqual('5', config.build)
         self.assertEqual('6', config.up)
@@ -27,7 +27,7 @@ class TestDockerConfig(unittest.TestCase):
         config = DockerConfig({}, 'docker')
         self.assertEqual('', config.run)
         self.assertEqual('', config.name)
-        self.assertEqual('', config.work_dir)
+        self.assertEqual('', config.working_dir)
         self.assertEqual('', config.container)
         self.assertEqual('', config.build)
         self.assertEqual('', config.up)
