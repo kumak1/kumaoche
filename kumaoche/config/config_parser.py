@@ -129,13 +129,13 @@ class ConfigParser(object):
 
         presets = loaded_yaml.get('presets', {})
         result = {
-            "environment": {**presets.get("environment", {}), **loaded_repository.get("environment", {})},
-            "shell": {**presets.get("shell", {}), **loaded_repository.get("shell", {})},
-            "docker": {**presets.get("docker", {}), **loaded_repository.get("docker", {})},
-            "git": {**presets.get("git", {}), **loaded_repository.get("git", {})},
-            "php": {**presets.get("php", {}), **loaded_repository.get("php", {})},
-            "ruby": {**presets.get("ruby", {}), **loaded_repository.get("ruby", {})},
-            "node": {**presets.get("node", {}), **loaded_repository.get("node", {})},
+            "environment": {**presets.get("environment", {}), **cls.safe_get_hash(loaded_repository, "environment")},
+            "shell": {**presets.get("shell", {}), **cls.safe_get_hash(loaded_repository, "shell")},
+            "docker": {**presets.get("docker", {}), **cls.safe_get_hash(loaded_repository, "docker")},
+            "git": {**presets.get("git", {}), **cls.safe_get_hash(loaded_repository, "git")},
+            "php": {**presets.get("php", {}), **cls.safe_get_hash(loaded_repository, "php")},
+            "ruby": {**presets.get("ruby", {}), **cls.safe_get_hash(loaded_repository, "ruby")},
+            "node": {**presets.get("node", {}), **cls.safe_get_hash(loaded_repository, "node")},
             "services": [],
         }
 
