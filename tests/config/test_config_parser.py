@@ -12,7 +12,9 @@ class TestConfigParser(unittest.TestCase):
         self.assertEqual(['variable_assign_test_role', 'empty_role'], ConfigParser.all_roles(self.file_path_list))
 
     def test_find(self):
-        ConfigParser.find('empty_role', self.file_path_list)
+        config = ConfigParser.find('variable_assign_test_role', self.file_path_list)
+        self.assertEqual(config.git.lang, 'git')
+
 
 if __name__ == '__main__':
     unittest.main()

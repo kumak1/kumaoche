@@ -9,7 +9,4 @@ class DockerConfig(ExecEnvConfig):
 
         configs = parsed_yaml.get(key, {})
 
-        self.container = configs.get('container', '')
-        self.build = configs.get('build', '')
-        self.up = configs.get('up', '')
-        self.down = configs.get('down', '')
+        self.container_name = configs.get('container_name', '')

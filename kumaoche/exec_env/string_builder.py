@@ -37,7 +37,7 @@ class StringBuilder(ExecEnv):
 
     def __string_build(self, command: str, work_dir=''):
         if work_dir == '':
-            work_dir = self.__runner.path_filter(self.var_assign(self.__config.work_dir))
+            work_dir = self.__runner.path_filter(self.var_assign(self.__config.working_dir))
 
         cmd = self.var_assign(command)
         cmd = self.var_assign(self.__config.run, {'command': cmd})

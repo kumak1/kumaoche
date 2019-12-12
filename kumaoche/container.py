@@ -10,27 +10,11 @@ class Container(object):
     def __init__(self, role: str):
         config = ConfigParser.find(role)
 
-        self.git = Git(self.env(config.git, config.variable), config.git)
+        self.git = Git(self.env(config.git), config.git)
+        self.services = []
 
-        self.string_builder = StringBuilder(config.string_builder, config.variable, InvokeRunner)
-        self.shell = Shell(config.shell, config.variable, InvokeRunner)
-        self.docker = Docker(config.docker, config.variable, InvokeRunner)
-
-        self.exec_envs = [
-            self.string_builder,
-            self.shell,
-            self.docker
-        ]
-
-        self.php = PackageManager(self.env(config.php, config.variable), config.php)
-        self.ruby = PackageManager(self.env(config.ruby, config.variable), config.ruby)
-        self.node = PackageManager(self.env(config.node, config.variable), config.node)
-
-        self.package_managers = [
-            self.php,
-            self.ruby,
-            self.node
-        ]
+        for service in config.services:
+            self.services.extend([PackageManager(self.env(service), service)])
 
     def setup(self):
         return
@@ -39,13 +23,13 @@ class Container(object):
         return
 
     @staticmethod
-    def env(config: ServiceConfig, variable: {}):
-        if config.env.name == 'string_builder' and config.env.work_dir != '':
-            return StringBuilder(config.env, variable, InvokeRunner)
-        elif config.env.name == 'shell' and config.env.work_dir != '':
-            return Shell(config.env, variable, InvokeRunner)
-        elif config.env.name == 'docker' and config.env.work_dir != '':
-            return Docker(config.env, variable, InvokeRunner)
+    def env(config: ServiceConfig):
+        if config.env == 'string_builder':
+            return StringBuilder(config.string_builder, config.environment, InvokeRunner)
+        elif config.env == 'shell':
+            return Shell(config.shell, config.environment, InvokeRunner)
+        elif config.env == 'docker':
+            return Docker(config.docker, config.environment, InvokeRunner)
         else:
             return DisableEnv()
 

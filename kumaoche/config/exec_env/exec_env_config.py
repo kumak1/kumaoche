@@ -6,5 +6,8 @@ class ExecEnvConfig(object):
         configs = parsed_yaml.get(key, {})
 
         self.name = configs.get('name', '')
-        self.work_dir = configs.get('work_dir', '')
+        self.working_dir = configs.get('working_dir', '')
         self.run = configs.get('run', '')
+        self.build = configs.get('build', '')
+        self.up = configs.get('up', '')
+        self.down = configs.get('down', '')

@@ -1,98 +1,50 @@
 version: 1
 
-defaults:
-  variable: &variable_defaults
-    git_host: 'github.com'
-    git_org: 'kumak1'
-    git_repo: 'kumaoche'
-    db_host: 'db'
-    db_port: '3306'
-    db_user: 'root'
-    db_database: 'db'
-  string_builder: &string_builder_defaults
-    name: 'string_builder'
-    work_dir: '`ghq root`'
+presets:
+  environment:
+    git_host: github.com
+    git_org: kumak1
+  shell:
+    run: shell run {command}
+    working_dir: '`ghq root`'
+  string_builder:
     run: '{command}'
-  shell: &shell_defaults
-    name: 'shell'
-    work_dir: '`ghq root`'
+  docker:
+    working_dir: docker work_dir git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
+    run: docker run {command}
+  git:
+    repo_dir: repo git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
+    run: git run {command}
+    setup: git setup git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
+    update: git update git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
+  php:
+    run: pm run {command}
+    setup: pm setup git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
+    update: pm update git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
+    test: pm test git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
+  ruby:
     run: '{command}'
-  docker: &docker_defaults
-    name: 'docker'
-    work_dir: '`ghq root`/{git_host}/{git_org}/{git_repo}'
-    container: ''
-    run: 'docker-compose run {container} /bin/bash -c "{command}"'
-    build: 'docker-compose build'
-    up: 'docker-compose up -d'
-    down: 'docker-compose down'
-  git: &git_defaults
-    env:
-      <<: *shell_defaults
-    repo_dir: '`ghq root`/{git_host}/{git_org}/{git_repo}'
+  node:
     run: '{command}'
-    setup: 'ghq get git@{git_host}:{git_org}/{git_repo}.git'
-    update: 'ghq get git@{git_host}:{git_org}/{git_repo}.git && cd `ghq root`/{git_host}/{git_org}/{git_repo} && git switch master && git pull'
-  php: &php_defaults
-    env:
-      <<: *docker_defaults
-    run: '{command}'
-    setup: 'php -d detect_unicode=Off composer.phar install'
-    update: 'php -d detect_unicode=Off composer.phar install'
-    test: 'cd ./tests && ../vendor/bin/phpunit'
-  ruby: &ruby_defaults
-    env:
-      <<: *docker_defaults
-    run: '{command}'
-    setup: 'bundle install'
-    update: 'bundle install'
-    test: 'bundle exec rspec --color'
-  node: &node_defaults
-    env:
-      <<: *docker_defaults
-    run: '{command}'
-    setup: 'npm install'
-    update: 'npm install'
-    test: 'npm test'
-
-default_environments:
-  git_host: 'github.com'
-  git_org: 'kumak1'
-  git_repo: 'kumaoche'
 
 repositories:
-  colorme-admin:
+  variable_assign_test_role:
     services:
       -
         lang: php
-        development_env: docker
-        container_name: admin-php-fpm
-
-roles:
-  variable_assign_test_role:
-    variable:
-      <<: *variable_defaults
-    shell:
-      name: shell
-      work_dir: shell work_dir git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
-      run: shell run {command}
-    docker:
-      name: docker
-      container: 'container'
-      work_dir: docker work_dir git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
-      run: docker run {command}
-    git:
-      env:
-        <<: *shell_defaults
-      repo_dir: repo git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
-      run: git run {command}
-      setup: git setup git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
-      update: git update git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
-    php:
-      env:
-        <<: *shell_defaults
-      run: pm run {command}
-      setup: pm setup git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
-      update: pm update git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
-      test: pm test git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
-
+        env: docker
+        docker:
+          container_name: container
+        environment:
+          a: b
+      - lang: php
+        env: shell
+        docker:
+          container_name: container
+        shell:
+          working_dir: shell work_dir git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
+        environment:
   empty_role:
+    services:
+      -
+        lang:

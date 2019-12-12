@@ -7,6 +7,9 @@ from ..config import ShellConfig
 
 class Shell(ExecEnv):
     def __init__(self, config: ShellConfig, variable: {}, runner: Runner):
+        if variable is None:
+            variable = {}
+
         self.__config = config
         self.__default_var = variable
         self.__runner = runner
@@ -37,7 +40,7 @@ class Shell(ExecEnv):
 
     def __string_build(self, command: str, work_dir=''):
         if work_dir == '':
-            work_dir = self.__runner.path_filter(self.var_assign(self.__config.work_dir))
+            work_dir = self.__runner.path_filter(self.var_assign(self.__config.working_dir))
 
         if work_dir != '':
             work_dir = f'cd {work_dir} && '

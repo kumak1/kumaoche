@@ -11,30 +11,26 @@ class ConfigParser(object):
 
     @classmethod
     def file_path_list(cls):
-        return os.environ.get('KUMAOCHE_CONFIG_PATH', os.getcwd() + '/kumaoche_config.yml').split(':')
+        default_config = [os.path.dirname(__file__) + '/presets.yml']
+        append_config = os.environ.get('KUMAOCHE_CONFIG_PATH', os.getcwd() + '/kumaoche_config.yml').split(':')
+
+        return default_config + append_config
 
     @classmethod
     def all_roles(cls, file_path_list=None):
         loaded_yaml = cls.yaml_load(file_path_list)
-        parsed_yaml = cls.parse_version(loaded_yaml)
-        loaded_roles = parsed_yaml.get('roles', {})
-        loaded_role_keys = list(loaded_roles.keys())
+        loaded_repository_keys = list(loaded_yaml.get('repositories', {}).keys())
 
         # 順序を維持した重複削除
-        return sorted(set(loaded_role_keys), key=loaded_role_keys.index)
+        return sorted(set(loaded_repository_keys), key=loaded_repository_keys.index)
 
     @classmethod
-    def find(cls, role: str, file_path_list=None):
+    def find(cls, repo: str, file_path_list=None):
         loaded_yaml = cls.yaml_load(file_path_list)
         parsed_yaml = cls.parse_version(loaded_yaml)
-        loaded_roles = parsed_yaml.get('roles', {})
-        loaded_role_keys = list(loaded_roles.keys())
+        loaded_repository = cls.find_repository_config(parsed_yaml, repo)
 
-        if role not in loaded_role_keys:
-            print(f'Target role "{role}" is not exist.')
-            sys.exit()
-
-        return ConfigPack(loaded_roles.get(role, {}))
+        return ConfigPack(loaded_repository)
 
     @classmethod
     def yaml_load(cls, file_path_list=None):
@@ -63,3 +59,58 @@ class ConfigParser(object):
         else:
             print(f'Yaml version "{version}" is invalid.')
             sys.exit()
+
+    @classmethod
+    def find_repository_config(cls, loaded_yaml, repo):
+        # 指定リポジトリが設定ファイルに存在するか確認
+        loaded_repositories = loaded_yaml.get('repositories', {})
+        if repo not in list(loaded_repositories.keys()):
+            print(f'Target repository "{repo}" is not exist.')
+            sys.exit()
+
+        # 指定リポジトリの設定のyamlフォーマットが正しいか確認
+        loaded_repository = loaded_repositories.get(repo, {})
+        if type(loaded_repository.get('services')) != list:
+            print(f'Syntax Error.')
+            sys.exit()
+
+        presets = loaded_yaml.get('presets', {})
+        result = {
+            "environment": {**presets.get("environment", {}), **loaded_repository.get("environment", {})},
+            "shell": {**presets.get("shell", {}), **loaded_repository.get("shell", {})},
+            "docker": {**presets.get("docker", {}), **loaded_repository.get("docker", {})},
+            "git": {**presets.get("git", {}), **loaded_repository.get("git", {})},
+            "php": {**presets.get("php", {}), **loaded_repository.get("php", {})},
+            "ruby": {**presets.get("ruby", {}), **loaded_repository.get("ruby", {})},
+            "node": {**presets.get("node", {}), **loaded_repository.get("node", {})},
+            "services": [],
+        }
+
+        # 抽出対象に git リポジトリを上書き
+        result['environment']['git_repo'] = repo
+
+        for service in loaded_repository.get('services', []):
+            if service is None:
+                continue
+
+            result['services'].extend([{
+                "lang": service.get("lang", ""),
+                "env": service.get("env", ""),
+                "environment": {**result.get("environment", {}), **cls.safe_get_hash(service, "environment")},
+                "shell": {**result.get("shell", {}), **cls.safe_get_hash(service, "shell")},
+                "docker": {**result.get("docker", {}), **cls.safe_get_hash(service, "docker")},
+                "git": {**result.get("git", {}), **cls.safe_get_hash(service, "git")},
+                "php": {**result.get("php", {}), **cls.safe_get_hash(service, "php")},
+                "ruby": {**result.get("ruby", {}), **cls.safe_get_hash(service, "ruby")},
+                "node": {**result.get("node", {}), **cls.safe_get_hash(service, "node")},
+            }])
+
+        return result
+
+    @classmethod
+    def safe_get_hash(cls, dictionary: {}, key: str):
+        result = dictionary.get(key, {})
+        if result is None:
+            result = {}
+
+        return result

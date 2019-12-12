@@ -7,6 +7,9 @@ from ..config import DockerConfig
 
 class Docker(ExecEnv):
     def __init__(self, config: DockerConfig, variable: {}, runner: Runner):
+        if variable is None:
+            variable = {}
+
         self.__config = config
         self.__default_var = variable
         self.__runner = runner
@@ -35,20 +38,20 @@ class Docker(ExecEnv):
         return ''
 
     def build(self):
-        return self.exec(self.__config.build, work_dir=self.__config.work_dir)
+        return self.exec(self.__config.build, work_dir=self.__config.working_dir)
 
     def up(self):
-        return self.exec(self.__config.up, work_dir=self.__config.work_dir)
+        return self.exec(self.__config.up, work_dir=self.__config.working_dir)
 
     def down(self):
-        return self.exec(self.__config.down, work_dir=self.__config.work_dir)
+        return self.exec(self.__config.down, work_dir=self.__config.working_dir)
 
     def run(self, command: str, work_dir='', container=''):
         if work_dir == '':
-            work_dir = self.__config.work_dir
+            work_dir = self.__config.working_dir
 
         if container == '':
-            container = self.__config.container
+            container = self.__config.container_name
 
         append_var = {'container': container, 'command': command}
         cmd = self.var_assign(command, append_var)

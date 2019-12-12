@@ -8,13 +8,12 @@ from ..config import StubConfig
 
 class TestPackageManager(unittest.TestCase):
     def setUp(self):
-        self.config = StubConfig.find('variable_assign_test_role')
-        self.empty_config = StubConfig.find('empty_role')
-        self.env = MocEnv(self.config.variable)
-        self.pm = PackageManager(self.env, self.config.php)
-        self.empty_pm = PackageManager(self.env, self.empty_config.php)
+        self.config = StubConfig.find('variable_assign_test_role').services[0]
+        self.empty_config = StubConfig.find('empty_role').services[0]
+        self.pm = PackageManager(MocEnv(self.config.environment), self.config)
+        self.empty_pm = PackageManager(MocEnv(self.config.environment), self.empty_config)
         self.src_text = 'git_host:{git_host},git_org:{git_org},git_repo:{git_repo}'
-        self.dst_text = 'git_host:github.com,git_org:kumak1,git_repo:kumaoche'
+        self.dst_text = 'git_host:github.com,git_org:kumak1,git_repo:variable_assign_test_role'
 
     def test_run(self):
         self.assertEqual(f"work_dir:,command:pm run test_command", self.pm.run("test_command"))
