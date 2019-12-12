@@ -11,10 +11,7 @@ class ConfigParser(object):
 
     @classmethod
     def file_path_list(cls):
-        default_config = [os.path.dirname(__file__) + '/presets.yml']
-        append_config = os.environ.get('KUMAOCHE_CONFIG_PATH', os.getcwd() + '/kumaoche_config.yml').split(':')
-
-        return default_config + append_config
+        return os.environ.get('KUMAOCHE_CONFIG_PATH', os.getcwd() + '/kumaoche_config.yml').split(':')
 
     @classmethod
     def all_roles(cls, file_path_list=None):
@@ -43,10 +40,70 @@ class ConfigParser(object):
                 print(f'Target config file "{path}" is not exist.')
                 sys.exit()
 
-        loaded_yaml = {}
+        loaded_yaml = {
+            'presets': {
+                "environment": {
+                    'git_host': 'github.com',
+                    'git_org': '',
+                    'git_repo': '',
+                },
+                "shell": {
+                    'working_dir': '`ghq root`/{git_host}/{git_org}/{git_repo}',
+                    'run': '{command}',
+                    'build': '',
+                    'up': '',
+                    'down': '',
+                },
+                "docker": {
+                    'container_name'
+                    'working_dir': '`ghq root`/{git_host}/{git_org}/{git_repo}',
+                    'run': 'docker-compose run -rm {container} /bin/bash -c "{command}"',
+                    'build': 'docker-compose build',
+                    'up': 'docker-compose up -d',
+                    'down': 'docker-compose down',
+                },
+                "git": {
+                    'run': '{command}',
+                    'setup': 'ghq get git@{git_host}:{git_org}/{git_repo}.git',
+                    'update': 'ghq get git@{git_host}:{git_org}/{git_repo}.git && cd `ghq root`/{git_host}/{git_org}/{git_repo} && git switch master && git pull',
+                    'repo_dir': '`ghq root`/{git_host}/{git_org}/{git_repo}',
+                },
+                "php": {
+                    'run': '{command}',
+                    'setup': 'php -d detect_unicode=Off composer.phar install',
+                    'update': 'php -d detect_unicode=Off composer.phar install',
+                    'test': './vendor/bin/phpunit',
+                },
+                "ruby": {
+                    'run': '{command}',
+                    'setup': 'bundle install',
+                    'update': 'bundle install',
+                    'test': 'bundle exec rspec --color',
+                },
+                "node": {
+                    'run': '{command}',
+                    'setup': 'npm install',
+                    'update': 'npm install',
+                    'test': 'npm test',
+                },
+            }
+        }
+
         for file_path in file_path_list:
             with open(file_path) as file:
-                loaded_yaml = {**loaded_yaml, **yaml.safe_load(file)}
+                new_yaml = yaml.safe_load(file)
+                presets = loaded_yaml.get('presets', {})
+                loaded_presets = new_yaml.get('presets', {})
+                new_presets = {
+                    "environment": {**presets.get("environment", {}), **loaded_presets.get("environment", {})},
+                    "shell": {**presets.get("shell", {}), **loaded_presets.get("shell", {})},
+                    "docker": {**presets.get("docker", {}), **loaded_presets.get("docker", {})},
+                    "git": {**presets.get("git", {}), **loaded_presets.get("git", {})},
+                    "php": {**presets.get("php", {}), **loaded_presets.get("php", {})},
+                    "ruby": {**presets.get("ruby", {}), **loaded_presets.get("ruby", {})},
+                    "node": {**presets.get("node", {}), **loaded_presets.get("node", {})},
+                }
+                loaded_yaml = {**loaded_yaml, **new_yaml, **{'presets': new_presets}}
 
         return loaded_yaml
 
