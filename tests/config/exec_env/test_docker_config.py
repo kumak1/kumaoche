@@ -9,7 +9,7 @@ class TestDockerConfig(unittest.TestCase):
                 'run': '0',
                 'name': '1',
                 'working_dir': '2',
-                'container': '3',
+                'container_name': '3',
                 'build': '5',
                 'up': '6',
                 'down': '7',
@@ -19,7 +19,7 @@ class TestDockerConfig(unittest.TestCase):
         self.assertEqual('0', config.run)
         self.assertEqual('1', config.name)
         self.assertEqual('2', config.working_dir)
-        self.assertEqual('3', config.container)
+        self.assertEqual('3', config.container_name)
         self.assertEqual('5', config.build)
         self.assertEqual('6', config.up)
         self.assertEqual('7', config.down)
@@ -28,7 +28,7 @@ class TestDockerConfig(unittest.TestCase):
         self.assertEqual('', config.run)
         self.assertEqual('', config.name)
         self.assertEqual('', config.working_dir)
-        self.assertEqual('', config.container)
+        self.assertEqual('', config.container_name)
         self.assertEqual('', config.build)
         self.assertEqual('', config.up)
         self.assertEqual('', config.down)

@@ -61,6 +61,25 @@ presets:
   shell:
     run: shell run {command}
     working_dir: '`ghq root`'
+  string_builder:
+    run: '{command}'
+  docker:
+    working_dir: docker work_dir git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
+    run: docker run {command}
+  git:
+    repo_dir: repo git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
+    run: git run {command}
+    setup: git setup git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
+    update: git update git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
+  php:
+    run: pm run {command}
+    setup: pm setup git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
+    update: pm update git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
+    test: pm test git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
+  ruby:
+    run: '{command}'
+  node:
+    run: '{command}'
 
 repositories:
   variable_assign_test_role:

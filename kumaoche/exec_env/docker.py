@@ -51,7 +51,7 @@ class Docker(ExecEnv):
             work_dir = self.__config.working_dir
 
         if container == '':
-            container = self.__config.container
+            container = self.__config.container_name
 
         append_var = {'container': container, 'command': command}
         cmd = self.var_assign(command, append_var)
