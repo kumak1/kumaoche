@@ -93,20 +93,24 @@ class ConfigParser(object):
             if service is None:
                 continue
 
-            env = service.get("environment", {})
-            if env is None:
-                env = {}
-
             result['services'].extend([{
                 "lang": service.get("lang", ""),
                 "env": service.get("env", ""),
-                "environment": {**result.get("environment", {}), **env},
-                "shell": {**result.get("shell", {}), **service.get("shell", {})},
-                "docker": {**result.get("docker", {}), **service.get("docker", {})},
-                "git": {**result.get("git", {}), **service.get("git", {})},
-                "php": {**result.get("php", {}), **service.get("php", {})},
-                "ruby": {**result.get("ruby", {}), **service.get("ruby", {})},
-                "node": {**result.get("node", {}), **service.get("node", {})},
+                "environment": {**result.get("environment", {}), **cls.safe_get_hash(service, "environment")},
+                "shell": {**result.get("shell", {}), **cls.safe_get_hash(service, "shell")},
+                "docker": {**result.get("docker", {}), **cls.safe_get_hash(service, "docker")},
+                "git": {**result.get("git", {}), **cls.safe_get_hash(service, "git")},
+                "php": {**result.get("php", {}), **cls.safe_get_hash(service, "php")},
+                "ruby": {**result.get("ruby", {}), **cls.safe_get_hash(service, "ruby")},
+                "node": {**result.get("node", {}), **cls.safe_get_hash(service, "node")},
             }])
+
+        return result
+
+    @classmethod
+    def safe_get_hash(cls, dictionary: {}, key: str):
+        result = dictionary.get(key, {})
+        if result is None:
+            result = {}
 
         return result

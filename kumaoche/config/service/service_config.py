@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from ..exec_env import ShellConfig, DockerConfig
+from ..exec_env import ShellConfig, DockerConfig, StringBuilderConfig
 
 
 class ServiceConfig(object):
@@ -9,6 +9,7 @@ class ServiceConfig(object):
         self.lang = configs.get('lang', '')
         self.env = configs.get('env', '')
         self.environment = configs.get('environment', '')
+        self.string_builder = StringBuilderConfig(configs, 'string_builder')
         self.shell = ShellConfig(configs, 'shell')
         self.docker = DockerConfig(configs, 'docker')
 
