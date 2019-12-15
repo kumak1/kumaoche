@@ -57,7 +57,7 @@ class ConfigParser(object):
                 "docker": {
                     'container_name': '',
                     'working_dir': '`ghq root`/{git_host}/{git_org}/{git_repo}',
-                    'run': 'docker-compose run -rm {container} /bin/bash -c "{command}"',
+                    'run': 'docker-compose run --rm {container} /bin/bash -c "{command}"',
                     'build': 'docker-compose build',
                     'up': 'docker-compose up -d',
                     'down': 'docker-compose down',

@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='kumaoche',
-    version='0.1.17',
+    version='0.1.18',
     description='Pythonic Dev Repository & Dev Environment Management tool.',
     long_description='',
     author='kumak1',
