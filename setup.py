@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='kumaoche',
-    version='0.1.14',
+    version='0.1.15',
     description='Pythonic Dev Repository & Dev Environment Management tool.',
     long_description='',
     author='kumak1',

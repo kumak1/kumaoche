@@ -16,7 +16,6 @@ class TestStringBuilderConfig(unittest.TestCase):
         }
         config = StringBuilderConfig(parsed_yaml, 'string_builder')
         self.assertEqual('0', config.run)
-        self.assertEqual('1', config.name)
         self.assertEqual('2', config.working_dir)
         self.assertEqual('5', config.build)
         self.assertEqual('6', config.up)
@@ -24,7 +23,6 @@ class TestStringBuilderConfig(unittest.TestCase):
 
         config = StringBuilderConfig({}, 'string_builder')
         self.assertEqual('', config.run)
-        self.assertEqual('', config.name)
         self.assertEqual('', config.working_dir)
         self.assertEqual('', config.build)
         self.assertEqual('', config.up)

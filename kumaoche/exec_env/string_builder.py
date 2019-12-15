@@ -12,7 +12,7 @@ class StringBuilder(ExecEnv):
         self.__runner = runner
 
     def name(self):
-        return self.__config.name
+        return 'string_builder'
 
     def var_assign(self, text: str, append_var=None):
         if append_var is None:

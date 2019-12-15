@@ -15,7 +15,7 @@ class Shell(ExecEnv):
         self.__runner = runner
 
     def name(self):
-        return self.__config.name
+        return 'shell'
 
     def var_assign(self, text: str, append_var=None):
         if append_var is None:
