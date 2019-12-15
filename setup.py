@@ -1,8 +1,11 @@
 from setuptools import setup, find_packages
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 setup(
     name='kumaoche',
-    version='0.1.15',
+    version='0.1.17',
     description='Pythonic Dev Repository & Dev Environment Management tool.',
     long_description='',
     author='kumak1',

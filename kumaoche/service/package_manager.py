@@ -10,6 +10,9 @@ class PackageManager(Service):
         self.env = env
         self.__config = config
 
+    def name(self):
+        return self.__config.lang
+
     def run(self, command: str):
         var_command = {'command': self.env.var_assign(command)}
         return self.env.run(self.env.var_assign(self.__config.run, var_command))

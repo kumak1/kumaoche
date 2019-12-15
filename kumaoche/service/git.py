@@ -10,6 +10,9 @@ class Git(Service):
         self.env = env
         self.__config = config
 
+    def name(self):
+        return 'git'
+
     def run(self, command: str):
         repo_dir = self.env.var_assign(self.__config.repo_dir)
         var_command = {'command': self.env.var_assign(command)}
