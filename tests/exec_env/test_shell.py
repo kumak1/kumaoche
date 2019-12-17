@@ -8,8 +8,8 @@ from ..runner import MocRunner
 
 class TestShell(unittest.TestCase):
     def setUp(self):
-        self.config = StubConfig.find('variable_assign_test_role').services[1]
-        self.empty_config = StubConfig.find('empty_role').services[0]
+        self.config = StubConfig.find('variable_assign_test_role').services[2]
+        self.empty_config = StubConfig.find('empty_role').services[1]
         self.env = Shell(self.config.shell, self.config.environment, MocRunner)
         self.empty_env = Shell(self.empty_config.shell, self.empty_config.environment, MocRunner)
         self.src_text = 'git_host:{git_host},git_org:{git_org},git_repo:{git_repo}'

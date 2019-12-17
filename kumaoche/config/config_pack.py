@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from .service import GitConfig, PackageManagerConfig
+from .service import PackageManagerConfig
 
 
 class ConfigPack(object):
@@ -10,8 +10,12 @@ class ConfigPack(object):
 
         # 全設定共有のテンプレート用変数
         self.environment = self.assign_dict(parsed_yaml, 'environment')
-        self.git = GitConfig(parsed_yaml)
         self.services = []
+
+        git = parsed_yaml.get('git', {})
+        if git is not {}:
+            git['environment'] = self.environment
+            self.services.extend([PackageManagerConfig(git)])
 
         for service in parsed_yaml.get('services', []):
             if service is not None:

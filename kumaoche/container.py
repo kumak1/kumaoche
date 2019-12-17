@@ -2,7 +2,7 @@
 
 from .config import ConfigParser, ServiceConfig
 from .exec_env import DisableEnv, Shell, Docker, StringBuilder
-from .service import Git, PackageManager
+from .service import PackageManager
 from .runner import InvokeRunner
 
 
@@ -10,17 +10,10 @@ class Container(object):
     def __init__(self, role: str):
         config = ConfigParser.find(role)
 
-        self.git = Git(self.env(config.git), config.git)
         self.services = []
 
         for service in config.services:
             self.services.extend([PackageManager(self.env(service), service)])
-
-    def setup(self):
-        return
-
-    def update(self):
-        return
 
     @staticmethod
     def env(config: ServiceConfig):

@@ -13,7 +13,7 @@ class TestConfigParser(unittest.TestCase):
 
     def test_find(self):
         config = ConfigParser.find('variable_assign_test_role', self.file_path_list)
-        self.assertEqual(config.git.lang, 'git')
+        self.assertEqual(config.services[0].lang, 'git')
 
 
 if __name__ == '__main__':

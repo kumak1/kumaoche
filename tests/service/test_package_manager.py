@@ -8,8 +8,8 @@ from ..config import StubConfig
 
 class TestPackageManager(unittest.TestCase):
     def setUp(self):
-        self.config = StubConfig.find('variable_assign_test_role').services[0]
-        self.empty_config = StubConfig.find('empty_role').services[0]
+        self.config = StubConfig.find('variable_assign_test_role').services[1]
+        self.empty_config = StubConfig.find('empty_role').services[1]
         self.pm = PackageManager(MocEnv(self.config.environment), self.config)
         self.empty_pm = PackageManager(MocEnv(self.config.environment), self.empty_config)
         self.src_text = 'git_host:{git_host},git_org:{git_org},git_repo:{git_repo}'

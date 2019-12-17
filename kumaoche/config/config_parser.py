@@ -63,10 +63,20 @@ class ConfigParser(object):
                     'down': 'docker-compose down',
                 },
                 "git": {
+                    'lang': 'git',
+                    'env': 'shell',
                     'run': '{command}',
                     'setup': 'ghq get git@{git_host}:{git_org}/{git_repo}.git',
                     'update': 'ghq get git@{git_host}:{git_org}/{git_repo}.git && cd `ghq root`/{git_host}/{git_org}/{git_repo} && git switch master && git pull',
                     'repo_dir': '`ghq root`/{git_host}/{git_org}/{git_repo}',
+                    'test': '',
+                    "shell": {
+                        'working_dir': '',
+                        'run': '{command}',
+                        'build': '',
+                        'up': '',
+                        'down': '',
+                    },
                 },
                 "php": {
                     'run': '{command}',
