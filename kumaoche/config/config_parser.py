@@ -14,7 +14,7 @@ class ConfigParser(object):
         return os.environ.get('KUMAOCHE_CONFIG_PATH', os.getcwd() + '/kumaoche_config.yml').split(':')
 
     @classmethod
-    def all_roles(cls, file_path_list=None):
+    def all_repository_names(cls, file_path_list=None):
         loaded_yaml = cls.yaml_load(file_path_list)
         loaded_repository_keys = list(loaded_yaml.get('repositories', {}).keys())
 

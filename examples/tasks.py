@@ -6,7 +6,7 @@ from kumaoche import Container
 
 @task
 def test(c):
-    for role in Container.all_role_names():
+    for role in Container.all_repository_names():
         print(role)
 
     print('end')
