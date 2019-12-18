@@ -13,7 +13,6 @@ presets:
     working_dir: docker work_dir git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
     run: docker run {command}
   git:
-    repo_dir: repo git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
     run: git run {command}
     setup: git setup git_host:{git_host},git_org:{git_org},git_repo:{git_repo}
     update: git update git_host:{git_host},git_org:{git_org},git_repo:{git_repo}

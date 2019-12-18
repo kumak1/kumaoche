@@ -28,7 +28,6 @@ defaults:
   git: &git_defaults
     env:
       <<: *shell_defaults
-    repo_dir: '`ghq root`/{git_host}/{git_org}/{git_repo}'
     run: '{command}'
     setup: 'ghq get git@{git_host}:{git_org}/{git_repo}.git'
     update: 'ghq get git@{git_host}:{git_org}/{git_repo}.git && cd `ghq root`/{git_host}/{git_org}/{git_repo} && git switch master && git pull'

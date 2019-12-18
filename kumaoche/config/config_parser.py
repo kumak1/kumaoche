@@ -68,7 +68,6 @@ class ConfigParser(object):
                     'run': '{command}',
                     'setup': 'ghq get git@{git_host}:{git_org}/{git_repo}.git',
                     'update': 'ghq get git@{git_host}:{git_org}/{git_repo}.git && cd `ghq root`/{git_host}/{git_org}/{git_repo} && git switch master && git pull',
-                    'repo_dir': '`ghq root`/{git_host}/{git_org}/{git_repo}',
                     'test': '',
                     "shell": {
                         'working_dir': '',
@@ -86,8 +85,8 @@ class ConfigParser(object):
                 },
                 "ruby": {
                     'run': '{command}',
-                    'setup': 'bundle install',
-                    'update': 'bundle install',
+                    'setup': 'bundle install --path vendor/bundle',
+                    'update': 'bundle install --path vendor/bundle',
                     'test': 'bundle exec rspec --color',
                 },
                 "node": {
